@@ -2,7 +2,7 @@
 
 resource "aws_waf_ipset" "ipset" {
   name = "tfIP-${each.key}"
-  for_each = var.ip_whitelist
+  for_each = {for n in var.ip_whitelist: n => n}
   
   ip_set_descriptors {
     type  = "IPV4"
@@ -16,7 +16,7 @@ resource "aws_waf_rule" "wafrule" {
   metric_name = "tfWAFRule"
 
   predicates {
-    data_id = values(aws_waf_ipset.ipset)
+    data_id = values(aws_waf_ipset.ipset.id)
     negated = false
     type    = "IPMatch"
   }
