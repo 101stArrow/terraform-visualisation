@@ -1,12 +1,21 @@
 # Firewall to prevent secret leak
 
 resource "aws_waf_ipset" "ipset" {
-  name = "tfIP-${each.key}"
-  for_each = {for n in var.ip_whitelist: n => n}
-  
+  name = "tfIPSet"
+
   ip_set_descriptors {
     type  = "IPV4"
-    value = "${each.value}/32"
+    value = "95.146.225.164/32"
+  }
+
+  ip_set_descriptors {
+    type  = "IPV4"
+    value = "86.25.34.88/32"
+  }
+
+  ip_set_descriptors {
+    type  = "IPV4"
+    value = "159.242.113.194/32"
   }
 }
 
@@ -16,7 +25,7 @@ resource "aws_waf_rule" "wafrule" {
   metric_name = "tfWAFRule"
 
   predicates {
-    data_id = [aws_waf_ipset.ipset[each.key].id]
+    data_id = aws_waf_ipset.ipset.id
     negated = false
     type    = "IPMatch"
   }
