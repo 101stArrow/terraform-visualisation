@@ -3,10 +3,10 @@
 resource "aws_waf_ipset" "ipset" {
   name = "tfIP"
   
-  for_each = var.ip_whitelist
+  for_each = {for n in var.ip_whitelist: n => n}
   ip_set_descriptors {
     type  = "IPV4"
-    value = "${each}/32"
+    value = "${each.key}/32"
   }
 }
 
