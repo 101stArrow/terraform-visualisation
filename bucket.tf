@@ -6,11 +6,6 @@ data "template_file" "bucket_policy" {
   }
 }
 
-resource "local_file" "policy" {
-  content = data.template_file.bucket_policy.rendered
-  filename = "policy.json"
-}
-
 resource "aws_s3_bucket" "bucket" {
   bucket = "franscape-visualisation-${var.id}"
   acl    = "private"
