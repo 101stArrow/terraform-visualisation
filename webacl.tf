@@ -4,18 +4,9 @@ resource "aws_waf_ipset" "ipset" {
   name = "tfIPSet"
 
   ip_set_descriptors {
+    count = length(var.ip_whitelist)
     type  = "IPV4"
-    value = "95.146.225.164/32"
-  }
-
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "86.25.34.88/32"
-  }
-
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "159.242.113.194/32"
+    value = "${var.ip_whitelist[count.index]}/32"
   }
 }
 

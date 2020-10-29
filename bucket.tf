@@ -7,7 +7,7 @@ data "template_file" "bucket_policy" {
 
 resource "aws_s3_bucket" "bucket" {
   bucket = "franscape-visualisation-${var.id}"
-  acl    = "public-read"
+  acl    = "private"
   policy = data.template_file.bucket_policy.rendered
 
   tags = {
