@@ -4,7 +4,9 @@
       "Sid": "AllowCloudfrontRead",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:cloudfront:::*"
+        "Service": [
+          "cloudfront.amazonaws.com"
+        ]
       },
       "Action": "s3:GetObject",
       "Resource": "arn:aws:s3:::${bucket}/*"
