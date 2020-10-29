@@ -18,10 +18,16 @@ resource "aws_cloudfront_distribution" "visualisation" {
   origin {
     domain_name = aws_s3_bucket.bucket.bucket_domain_name
     origin_id   = "primaryS3-${var.id}"
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity
+    }
   }
   origin {
     domain_name = aws_s3_bucket.bucket.bucket_domain_name
     origin_id   = "failoverS3-${var.id}"
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity
+    }
   }
 
   enabled             = true
@@ -62,4 +68,8 @@ resource "aws_cloudfront_distribution" "visualisation" {
     acm_certificate_arn = var.cloudfront_cert_arn
   }
   wait_for_deployment = true
+}
+
+resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
+  comment = "Access for ${var.id}"
 }
