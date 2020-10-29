@@ -3,11 +3,11 @@
 resource "aws_waf_ipset" "ipset" {
   name = "tfIP"
 
-  dynamic "ip" {
+  dynamic "tag" {
     for_each = var.ip_whitelist
     ip_set_descriptors {
       type  = "IPV4"
-      value = "${ip}/32"
+      value = "${tag}/32"
     }
   }
 }
