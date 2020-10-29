@@ -1,10 +1,10 @@
 variable "id" {
-  type = string
-  description "Lower case word to identify the visualisation"
+  type        = string
+  description = "Lower case word to identify the visualisation"
 }
 
 variable "domain" {
-  type = string
+  type        = string
   description = "The domain name to host the visualisation"
 }
 
