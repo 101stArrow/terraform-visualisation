@@ -1,7 +1,8 @@
 data "template_file" "bucket_policy" {
-  template = file("${path.module}/policies/s3_public.json.tpl")
+  template = file("${path.module}/policies/s3_private.json.tpl")
   vars = {
-    bucket = "franscape-visualisation-${var.id}"
+    bucket = "franscape-visualisation-${var.id}",
+    cloudfront_id = aws_cloudfront_distribution.visualisation.id
   }
 }
 
