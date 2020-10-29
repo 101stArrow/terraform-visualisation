@@ -1,12 +1,14 @@
 # Firewall to prevent secret leak
 
 resource "aws_waf_ipset" "ipset" {
-  name = "tfIPSet"
+  name = "tfIP"
 
-  ip_set_descriptors {
-    count = length(var.ip_whitelist)
-    type  = "IPV4"
-    value = "${var.ip_whitelist[count.index]}/32"
+  dynamic "ip" {
+    for_each = var.ip_whitelist
+    ip_set_descriptors {
+      type  = "IPV4"
+      value = "${ip}/32"
+    }
   }
 }
 
