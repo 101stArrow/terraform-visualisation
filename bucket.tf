@@ -1,5 +1,5 @@
 data "template_file" "bucket_policy" {
-  template = file(".terraform/modules/instance/policies/s3_public.json.tpl")
+  template = file("${path.module}/policies/s3_public.json.tpl")
   vars = {
     bucket = "franscape-visualisation-${var.id}"
   }
