@@ -32,7 +32,7 @@ resource "aws_cloudfront_distribution" "visualisation" {
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "groupS3-${var.brand_id}"
+    target_origin_id = "groupS3-${var.id}"
     viewer_protocol_policy = "allow-all"
     min_ttl                = 0
     default_ttl            = 3600
