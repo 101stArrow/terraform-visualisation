@@ -3,20 +3,7 @@
 resource "aws_waf_ipset" "ipset" {
   name = "tfIPSet"
 
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "95.146.225.164/32"
-  }
-
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "86.25.34.88/32"
-  }
-
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "159.242.113.194/32"
-  }
+  ip_set_descriptors = var.ip_whitelist
 }
 
 resource "aws_waf_rule" "wafrule" {

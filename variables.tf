@@ -26,5 +26,4 @@ variable "zone_id" {
 variable "ip_whitelist" {
   type        = list(string)
   description = "A list of IPs to allow through the firewall"
-  default     = ["95.146.225.164", "86.25.34.88", "159.242.113.194"]
 }
