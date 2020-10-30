@@ -1,5 +1,5 @@
 resource "aws_cloudfront_origin_access_identity" "visualisation" {
-  comment = var.id
+  comment = "Access for ${var.id}"
 }
 
 resource "aws_cloudfront_distribution" "visualisation" {
@@ -9,7 +9,7 @@ resource "aws_cloudfront_distribution" "visualisation" {
       status_codes = [403, 404, 500, 502]
     }
     member {
-      origin_id = "primaryS3-${var. id}"
+      origin_id = "primaryS3-${var.id}"
     }
     member {
       origin_id = "failoverS3-${var.id}"
@@ -19,14 +19,14 @@ resource "aws_cloudfront_distribution" "visualisation" {
     domain_name = aws_s3_bucket.bucket.bucket_domain_name
     origin_id   = "primaryS3-${var.id}"
     s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
+      origin_access_identity = aws_cloudfront_origin_access_identity.visualisation.cloudfront_access_identity_path
     }
   }
   origin {
     domain_name = aws_s3_bucket.bucket.bucket_domain_name
     origin_id   = "failoverS3-${var.id}"
     s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
+      origin_access_identity = aws_cloudfront_origin_access_identity.visualisation.cloudfront_access_identity_path
     }
   }
 
@@ -68,8 +68,4 @@ resource "aws_cloudfront_distribution" "visualisation" {
     acm_certificate_arn = var.cloudfront_cert_arn
   }
   wait_for_deployment = true
-}
-
-resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
-  comment = "Access for ${var.id}"
 }
