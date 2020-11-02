@@ -3,7 +3,7 @@
 resource "aws_waf_ipset" "ipset" {
   name = "tfIPSet"
 
-  ip_set_descriptors = var.ip_whitelist
+  ip_set_descriptors = [var.ip_whitelist]
 }
 
 resource "aws_waf_rule" "wafrule" {
