@@ -6,14 +6,3 @@ terraform {
     }
   }
 }
-
-provider "aws" {
-  profile = "work"
-  region  = "eu-west-2"
-}
-
-provider "aws" {
-  alias  = "us"
-  profile = "work"
-  region  = "us-east-1"
-}
