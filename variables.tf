@@ -24,6 +24,6 @@ variable "zone_id" {
 }
 
 variable "ip_whitelist" {
-  type        = list(any)
+  type        = string
   description = "A list of IPs to allow through the firewall"
 }

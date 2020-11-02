@@ -3,7 +3,10 @@
 resource "aws_waf_ipset" "ipset" {
   name = "tfIPSet"
 
-  ip_set_descriptors = [var.ip_whitelist]
+  ip_set_descriptors {
+    type = "IPV4"
+    value = "${var.ip_whitelist}/32"
+  }
 }
 
 resource "aws_waf_rule" "wafrule" {
