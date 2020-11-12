@@ -18,6 +18,7 @@ resource "aws_cloudfront_distribution" "visualisation" {
   origin {
     domain_name = aws_s3_bucket.bucket.bucket_domain_name
     origin_id   = "primaryS3-${var.id}"
+    origin_path = "/existing/"
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.visualisation.cloudfront_access_identity_path
     }
@@ -25,6 +26,7 @@ resource "aws_cloudfront_distribution" "visualisation" {
   origin {
     domain_name = aws_s3_bucket.bucket.bucket_domain_name
     origin_id   = "failoverS3-${var.id}"
+    origin_path = "/existing/"
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.visualisation.cloudfront_access_identity_path
     }
