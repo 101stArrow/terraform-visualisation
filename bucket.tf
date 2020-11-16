@@ -9,7 +9,7 @@ data "template_file" "bucket_policy" {
 resource "aws_s3_bucket" "bucket" {
   bucket = replace("franscape-visualisation-${var.id}", "_", "-")
   force_destroy = true
-  acl    = "private"
+  acl = "private"
 
   tags = {
     Project  = "franscape"
