@@ -35,7 +35,7 @@ resource "aws_cloudfront_distribution" "visualisation" {
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
-  web_acl_id          = aws_waf_web_acl.waf_acl.id
+  web_acl_id          = "main-visualisation"
   aliases = [var.domain]
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
