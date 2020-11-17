@@ -2,6 +2,10 @@ resource "aws_cloudfront_origin_access_identity" "visualisation" {
   comment = "Access for ${var.id}"
 }
 
+data "aws_waf_web_acl" "main" {
+  name = "main-visualisation"
+}
+
 resource "aws_cloudfront_distribution" "visualisation" {
   origin_group {
     origin_id = "groupS3-${var.id}"
@@ -35,7 +39,7 @@ resource "aws_cloudfront_distribution" "visualisation" {
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
-  web_acl_id          = "main-visualisation"
+  web_acl_id          = data.aws_waf_web_acl.main.id
   aliases = [var.domain]
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
